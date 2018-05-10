@@ -54,8 +54,9 @@ bool Memory::HookEx(HANDLE hProc, void * pLocation, void * pHook, unsigned int u
 	if (!WriteProcessMemory(hProc, pLocation, buffer, uLen, nullptr))
 		return false;
 
+	delete[] buffer;
+	
 	VirtualProtectEx(hProc, pLocation, uLen, dwOld, nullptr);
 
-	delete[] buffer;
 	return true;
 }
